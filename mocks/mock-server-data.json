@@ -1,0 +1,173 @@
+{
+  "api": {
+    "titles": [
+      "Cozy apartment near the river",
+      "Historical hotel in the heart of the city",
+      "Spacious room with a view",
+      "Luxury penthouse with rooftop garden",
+      "Modern studio apartment with amenities",
+      "Charming cottage in the countryside",
+      "Elegant townhouse with a private courtyard",
+      "Comfortable student accommodation"
+    ],
+    "descriptions": [
+      "A comfortable apartment with a beautiful view of the river. Ideal for a relaxing getaway.",
+      "Step back in time and experience the charm of this historic hotel. Conveniently located near all major attractions.",
+      "Enjoy the stunning view from your spacious room. Perfect for a romantic getaway.",
+      "Indulge in luxury with this penthouse featuring a rooftop garden. Experience city living at its finest.",
+      "Stay in this modern studio apartment equipped with all the amenities you need for a comfortable stay.",
+      "Escape to the countryside and stay in this charming cottage surrounded by nature. Peace and tranquility await.",
+      "Experience elegance and style in this townhouse with a private courtyard. Perfect for a family vacation.",
+      "A comfortable room ideal for students. Close to universities and public transportation."
+    ],
+    "cities": [
+      "Paris",
+      "Cologne",
+      "Brussels",
+      "Amsterdam",
+      "Hamburg",
+      "Dusseldorf"
+    ],
+    "images": [
+      [
+        "img/house-01.jpg",
+        "img/house-02.jpg",
+        "img/house-03.jpg",
+        "img/house-04.jpg",
+        "img/house-05.jpg",
+        "img/house-06.jpg"
+      ],
+      [
+        "img/hotel-01.jpg",
+        "img/hotel-02.jpg",
+        "img/hotel-03.jpg",
+        "img/hotel-04.jpg",
+        "img/hotel-05.jpg",
+        "img/hotel-06.jpg"
+      ],
+      [
+        "img/room-01.jpg",
+        "img/room-02.jpg",
+        "img/room-03.jpg",
+        "img/room-04.jpg",
+        "img/room-05.jpg",
+        "img/room-06.jpg"
+      ],
+      [
+        "img/apartment-01.jpg",
+        "img/apartment-02.jpg",
+        "img/apartment-03.jpg",
+        "img/apartment-04.jpg",
+        "img/apartment-05.jpg",
+        "img/apartment-06.jpg"
+      ],
+      [
+        "img/house-07.jpg",
+        "img/house-08.jpg",
+        "img/house-09.jpg",
+        "img/house-10.jpg",
+        "img/house-11.jpg",
+        "img/house-12.jpg"
+      ],
+      [
+        "img/hotel-07.jpg",
+        "img/hotel-08.jpg",
+        "img/hotel-09.jpg",
+        "img/hotel-10.jpg",
+        "img/hotel-11.jpg",
+        "img/hotel-12.jpg"
+      ],
+      [
+        "img/room-07.jpg",
+        "img/room-08.jpg",
+        "img/room-09.jpg",
+        "img/room-10.jpg",
+        "img/room-11.jpg",
+        "img/room-12.jpg"
+      ],
+      [
+        "img/apartment-07.jpg",
+        "img/apartment-08.jpg",
+        "img/apartment-09.jpg",
+        "img/apartment-10.jpg",
+        "img/apartment-11.jpg",
+        "img/apartment-12.jpg"
+      ]
+    ],
+    "previewImages": [
+      "https://example.com/preview-image1.jpg",
+      "https://example.com/preview-image2.jpg",
+      "https://example.com/preview-image3.jpg",
+      "https://example.com/preview-image4.jpg",
+      "https://example.com/preview-image5.jpg",
+      "https://example.com/preview-image6.jpg",
+      "https://example.com/preview-image7.jpg",
+      "https://example.com/preview-image8.jpg"
+    ],
+    "types": [
+      "Room",
+      "Apartment",
+      "House",
+      "Hotel"
+    ],
+    "goods": [
+      "Breakfast",
+      "Air conditioning",
+      "Laptop friendly workspace",
+      "Baby seat",
+      "Washer",
+      "Towels",
+      "Fridge"
+    ],
+    "hostNames": [
+      "Sophia",
+      "Ethan",
+      "Olivia",
+      "Liam",
+      "Ava",
+      "Noah",
+      "Emma",
+      "Lucas"
+    ],
+    "hostEmails": [
+      "sophia@email.com",
+      "ethan@email.com",
+      "olivia@email.com",
+      "liam@email.com",
+      "ava@email.com",
+      "noah@email.com",
+      "emma@email.com",
+      "lucas@email.com"
+    ],
+    "hostAvatarURLs": [
+      "avatar1.png",
+      "avatar2.jpg",
+      "avatar3.png",
+      "avatar4.jpg",
+      "avatar5.png",
+      "avatar6.jpg",
+      "avatar7.png",
+      "avatar8.jpg"
+    ],
+    "hostPasswords": [
+      "password",
+      "password1",
+      "password2",
+      "password3",
+      "password4",
+      "password5",
+      "password6",
+      "password7"
+    ],
+    "locations": [
+      [52.520008, 13.404954],
+      [48.208176, 16.373819],
+      [41.385063, 2.173404],
+      [41.902782, 12.496366],
+      [50.075538, 14.437800],
+      [53.349805, -6.26031],
+      [41.385063, 2.173404],
+      [41.902782, 12.496366]
+    ]
+  }
+}
