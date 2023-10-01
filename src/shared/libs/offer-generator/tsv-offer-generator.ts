@@ -1,6 +1,7 @@
 import { OfferGenerator } from './offer-generator.interface.js';
 import { MockServerData } from '../../types/index.js';
-import { generateRandomValue, getRandomItem, getRandomItems, getRandomDate } from '../../helpers/index.js';
+import { generateRandomValue, getRandomItem, getRandomItems } from '../../helpers/index.js';
+import dayjs from 'dayjs';
 
 const FIRST_WEEK_DAY = 1;
 const LAST_WEEK_DAY = 7;
@@ -27,7 +28,7 @@ export class TSVOfferGenerator implements OfferGenerator {
   public generate(): string {
     const title = getRandomItems<string>(this.mockData.titles).join(';');
     const description = getRandomItem<string>(this.mockData.descriptions);
-    const postDate = getRandomDate(FIRST_WEEK_DAY,LAST_WEEK_DAY);
+    const postDate = dayjs().subtract(generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY), 'day').toISOString();
     const city = getRandomItem<string>(this.mockData.cities);
     const previewImage = getRandomItem<string>(this.mockData.previewImages);
     const image = getRandomItem(this.mockData.images);
@@ -39,19 +40,13 @@ export class TSVOfferGenerator implements OfferGenerator {
     const guests = generateRandomValue(MIN_GUESTS, MAX_GUESTS).toString();
     const price = generateRandomValue(MIN_PRICE, MAX_PRICE).toString();
     const goods = getRandomItem(this.mockData.goods);
-    const name = getRandomItem(this.mockData.hostNames);
-    const email = getRandomItem(this.mockData.hostEmails);
-    const avatarUrl = getRandomItem(this.mockData.hostAvatarURLs);
-    const password = getRandomItem(this.mockData.hostPasswords);
-    const isPro = getRandomItem<string>(['true', 'false']);
+    const user = [getRandomItem(this.mockData.hostNames), getRandomItem(this.mockData.hostEmails), getRandomItem(this.mockData.hostAvatarURLs), getRandomItem(this.mockData.hostPasswords), getRandomItem<string>(['true', 'false'])].toString();
     const commentsCount = generateRandomValue(MIN_COMMENTS, MAX_COMMENTS).toString();
-    const location = getRandomItem(this.mockData.coordinates);
-
+    const location = getRandomItem(this.mockData.coordinates).join(';');
     return [
       title, description, postDate, city,
       previewImage, image, isPremium, isFavorite, rating,
-      type, rooms, guests, price, goods, name, email,
-      avatarUrl, password, isPro, commentsCount, location
+      type, rooms, guests, price, goods, user, commentsCount, location
     ].join('\t');
   }
 }

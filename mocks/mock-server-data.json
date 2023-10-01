@@ -105,29 +105,29 @@
       "https://example.com/preview-image8.jpg"
     ],
     "types": [
-      "Room",
-      "Apartment",
-      "House",
-      "Hotel"
+      "room",
+      "apartment",
+      "house",
+      "hotel"
     ],
     "goods": [
       "Breakfast",
-      "Air conditioning",
-      "Laptop friendly workspace",
-      "Baby seat",
+      "AirConditioning",
+      "LaptopFriendlyWorkspace",
+      "BabySeat",
       "Washer",
       "Towels",
       "Fridge"
     ],
     "hostNames": [
-      "Sophia",
-      "Ethan",
-      "Olivia",
-      "Liam",
-      "Ava",
-      "Noah",
-      "Emma",
-      "Lucas"
+      "Sophia Johnson",
+      "Ethan Hope",
+      "Olivia Wilde",
+      "Liam Gallaher",
+      "Ava Gardner",
+      "Noah Noahovich",
+      "Emma Watson",
+      "Lucas Film"
     ],
     "hostEmails": [
       "sophia@email.com",
