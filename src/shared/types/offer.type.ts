@@ -1,9 +1,11 @@
 
+
 import { Cities } from './cities.enum.js';
 import { Goods } from './goods.enum.js';
 import { Location } from './location.type.js';
 import { PropertyType } from './property-type.enum.js';
 import { User } from './user.type.js';
+
 
 export type Offer = {
   title: string; // Obligatory, 10-100 symbols

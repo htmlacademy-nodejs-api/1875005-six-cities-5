@@ -11,7 +11,7 @@ export function createOffer(offerData: string): Offer {
   ] = offerData.replace('\n', '').split('\t');
 
   const hostParts = hostData.split(',');
-  const [name, email, avatarUrl, password, isPro] = hostParts;
+  const [name, email, avatarUrl, isPro] = hostParts;
   const locationParts = location.split(',');
 
   return {
@@ -33,7 +33,6 @@ export function createOffer(offerData: string): Offer {
       name,
       email,
       avatarUrl,
-      password: Number.parseFloat(password),
       isPro: isPro === 'true',
     },
     commentsCount: Number.parseFloat(commentsCount),
