@@ -1,0 +1,741 @@
+openapi: 3.0.0
+info:
+  title: API Description for "Six Cities" Project Server.
+  description: |
+    * Description of the server routes for the project.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 2.0.0
+tags:
+  - name: offers
+    description: Actions related to offers.
+  - name: premium
+    description: Actions related to premium offers.
+  - name: favorites
+    description: Actions related to favorite offers.
+  - name: comments
+    description: Actions related to comments.
+  - name: users
+    description: User-related actions.
+paths:
+  /offers:
+    get:
+      tags:
+        - offers
+      summary: Get a list of rental offers.
+      description: Returns an array of offers. Each offer is described as an object.
+      responses:
+        "200":
+          description: Array of favorite offers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offers'
+
+    post:
+      tags:
+        - offers
+      summary: Create a new offer.
+      description: Creates a new offer.
+      parameters:
+      - name: X-Token
+        in: header
+        description: User's authorization token.
+        example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Information to create a new offer.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/newOffer'
+        required: true
+      responses:
+        "201":
+          description: New offer created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+        "401":
+          description: User is not authorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authError'
+
+  /offers/{offerId}:
+    get:
+      tags:
+        - offers
+      summary: Get detailed information about an offer.
+      description: Returns detailed information about an offer with the offerId identifier.
+      parameters:
+      - name: offerId
+        in: path
+        description: Unique offer identifier.
+        required: true
+        schema:
+          type: integer
+          example: 1
+      responses:
+        "200":
+          description: Detailed offer information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+        "400":
+          description: Request error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/noOfferError'
+
+    put:
+      tags:
+        - offers
+      summary: Edit an offer.
+      description: Updates an offer with the offerId identifier.
+      parameters:
+      - name: X-Token
+        in: header
+        description: User's authorization token.
+        example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Information to update an offer.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/changeOffer'
+        required: true
+      responses:
+        "200":
+          description: Offer successfully updated. User object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+        "401":
+          description: User is not authorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authError'
+
+    delete:
+      tags:
+        - offers
+      summary: Delete an offer.
+      description: Deletes an offer with the offerId identifier.
+      parameters:
+      - name: offerId
+        in: path
+        description: Unique offer identifier.
+        required: true
+        schema:
+          type: integer
+          example: 1
+      - name: X-Token
+        in: header
+        description: User's authorization token.
+        example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: Offer deleted successfully.
+        "401":
+          description: User is not authorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authError'
+
+  /premium/{city}:
+    get:
+      tags:
+        - premium
+      summary: Get a list of premium offers in the city.
+      description: Returns an array of premium offers in the city.
+      parameters:
+      - name: X-Token
+        in: header
+        description: User's authorization token.
+        example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Array of premium offers in the city.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offers'
+        "400":
+          description: Request body error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/noCityError'
+        "401":
+          description: User is not authorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authError'
+
+  /favorites:
+    get:
+      tags:
+        - favorites
+      summary: Get a list of favorite offers.
+      description: Returns an array of offers added to favorites.
+      parameters:
+      - name: X-Token
+        in: header
+        description: User's authorization token.
+        example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Favorite offers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offers'
+        "401":
+          description: User is not authorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authError'
+
+  /favorites/{offerId}/{status}:
+    post:
+      tags:
+        - favorites
+      summary: Add/Remove an offer to/from favorites.
+      description: Returns an offer with the offerId identifier and the current value of the isFavorite field.
+      parameters:
+      - name: offerId
+        in: path
+        description: Unique offer identifier.
+        required: true
+        schema:
+          type: integer
+          example: 1
+      - name: status
+        in: path
+        description: Status of the favorite offer. Can be 1 or 0, where 1 adds the offer to favorites, and 0 removes it.
+        required: true
+        schema:
+          type: integer
+          example: 1
+      - name: X-Token
+        in: header
+        description: User's authorization token.
+        example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Offer object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+        "400":
+          description: Request body error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/noOfferError'
+        "401":
+          description: User is not authorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authError'
+
+  /comments/{offerId}:
+    get:
+      tags:
+        - comments
+      summary: Get a list of comments for an offer.
+      description: Returns a list of comments for an offer with the offerId identifier.
+      parameters:
+      - name: offerId
+        in: path
+        description: Unique offer identifier.
+        required: true
+        schema:
+          type: integer
+          example: 1
+      - name: X-Token
+        in: header
+        description: User's authorization token.
+        example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Array of comments for an offer with the offerId identifier.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commentInfo'
+        "400":
+          description: Request body error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/noOfferError'
+        "401":
+          description: User is not authorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authError'
+
+    post:
+      tags:
+        - comments
+      summary: Add a comment for an offer.
+      description: Adds a new comment for an offer with the offerId identifier.
+      parameters:
+      - name: offerId
+        in: path
+        description: Unique offer identifier.
+        required: true
+        schema:
+          type: integer
+          example: 1
+      - name: X-Token
+        in: header
+        description: User's authorization token.
+        example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Object with a new comment.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/comment'
+        required: true
+      responses:
+        "200":
+          description: Array of comments for an offer with the offerId identifier.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commentInfo'
+        "400":
+          description: Request body error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/noOfferError'
+        "401":
+          description: User is not authorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authError'
+
+  /users/register:
+    post:
+      tags:
+        - users
+      summary: Create a new user
+      description: Registers a new user.
+      requestBody:
+        description: Information to create a new user.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+        required: true
+      responses:
+        "201":
+          description: User registered. User object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authUser'
+        "409":
+          description: User with such email already exists.
+
+  /users/login:
+    post:
+      tags:
+        - users
+      summary: Login to the restricted part of the application
+      description: Authorizes the user based on their login and password.
+      requestBody:
+        description: Object containing the user's login and password.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/login'
+        required: true
+      responses:
+        "200":
+          description: Authorization status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authUser'
+        "400":
+          description: Request body error.
+
+    get:
+      tags:
+      - users
+      summary: Check user's status.
+      description: Returns information about the user's authentication status.
+      parameters:
+      - name: X-Token
+        in: header
+        description: User's authorization token
+        example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: User's authentication status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authUser'
+        "401":
+          description: User is not authorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authError'
+
+  /users/logout:
+   post:
+    tags:
+      - users
+    summary: Log out from the private part of the application.
+    description: Closes access to the private part of the application.
+    parameters:
+      - name: X-Token
+        in: header
+        description: User's authorization token
+        example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20
+        required: true
+        schema:
+          type: string
+    responses:
+      "204":
+        description: Session ended.
+
+components:
+  schemas:
+
+    newOffer:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Cozy apartment near the river"
+        description:
+          type: string
+          example: "A comfortable apartment with a beautiful view of the river. Ideal for a relaxing getaway."
+        city:
+          type: string
+          example: "Cologne"
+        previewImage:
+          type: string
+          example: "preview-image1.jpg"
+        images:
+          type: array
+          items:
+            type: string
+            example: ["img/apartment-07.jpg", "img/apartment-08.jpg", "img/apartment-09.jpg", "img/apartment-10.jpg", "img/apartment-11.jpg", "img/apartment-12.jpg"]
+        isPremium:
+          type: boolean
+          example: false
+        isFavorite:
+          type: boolean
+          example: true
+        rating:
+          type: number
+          example: 2.1
+        type:
+          type: string
+          example: "room"
+        rooms:
+          type: number
+          example: 5
+        guests:
+          type: number
+          example: 1
+        price:
+          type: number
+          example: 200
+        goods:
+          type: array
+          items:
+            type: string
+            example: "Heating"
+        userId:
+          type: number
+          example: 1
+        location:
+          type: object
+          properties:
+            latitude:
+              type: number
+              example: 52.520008
+            longitude:
+              type: number
+              example: 13.404954
+      required:
+        - title
+        - description
+        - city
+        - previewImage
+        - images
+        - isPremium
+        - isFavorite
+        - rating
+        - type
+        - rooms
+        - guests
+        - price
+        - goods
+        - userId
+        - location
+
+    changeOffer:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: number
+              example: 1
+          required:
+            - id
+        - $ref: '#/components/schemas/newOffer'
+
+    offer:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 23
+        title:
+          type: string
+          example: "Cozy apartment near the river"
+        description:
+          type: string
+          example: "A comfortable apartment with a beautiful view of the river. Ideal for a relaxing getaway."
+        city:
+          type: string
+          example: "Cologne"
+        previewImage:
+          type: string
+          example: "preview-image1.jpg"
+        images:
+          type: array
+          items:
+            type: string
+            example: ["img/apartment-07.jpg", "img/apartment-08.jpg", "img/apartment-09.jpg", "img/apartment-10.jpg", "img/apartment-11.jpg", "img/apartment-12.jpg"]
+        isPremium:
+          type: boolean
+          example: false
+        isFavorite:
+          type: boolean
+          example: true
+        rating:
+          type: number
+          example: 2.1
+        type:
+          type: string
+          example: "room"
+        rooms:
+          type: number
+          example: 5
+        guests:
+          type: number
+          example: 1
+        price:
+          type: number
+          example: 200
+        goods:
+          type: array
+          items:
+            type: string
+            example: "Heating"
+        host:
+          $ref: '#/components/schemas/user'
+        commentsCount:
+          type: number
+          example: 2
+        location:
+          type: object
+          properties:
+            latitude:
+              type: number
+              example: 52.520008
+            longitude:
+              type: number
+              example: 13.404954
+      required:
+        - id
+        - title
+        - description
+        - publishedDate
+        - city
+        - preview
+        - images
+        - isPremium
+        - isFavorite
+        - rating
+        - property
+        - roomsCount
+        - guestsCount
+        - price
+        - goods
+        - host
+        - commentsCount
+        - location
+
+    offers:
+      type: array
+      items:
+        $ref: '#/components/schemas/offer'
+
+    authUser:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Sophia Johnson
+        email:
+          type: string
+          example: sophia@email.com
+        avatar:
+          type: string
+          example: avatar1.png
+        isPro:
+          type: boolean
+          example: false
+        token:
+          type: string
+          example: owienfrfw09gfn5495943nmlkf
+
+    user:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Ethan Hope
+        email:
+          type: string
+          example: ethan@email.com
+        avatar:
+          type: string
+          example: avatar2.png
+        isPro:
+          type: boolean
+          example: false
+
+    login:
+      type: object
+      properties:
+        email:
+          type: string
+          example: ethan@email.com
+        password:
+          type: string
+          example: 12345
+
+    commentInfo:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+            example: 1
+          text:
+            type: string
+            example: "Step back in time and experience the charm of this historic hotel. Conveniently located near all major attractions."
+          date:
+            type: string
+            example: "Fri Nov 03 2023 14:03:28 GMT-0400 (Eastern Daylight Time)"
+          rating:
+            type: number
+            example: 4
+          user:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "Ethan Hope"
+              id:
+                type: integer
+                example: 1
+              avatar:
+                type: boolean
+                example: "avatar2.png"
+              isPro:
+                type: boolean
+                example: false
+        required:
+          - comment
+          - date
+          - id
+          - rating
+          - user
+
+    comment:
+      type: object
+      properties:
+        text:
+          type: string
+          example: "Step back in time and experience the charm of this historic hotel. Conveniently located near all major attractions."
+        rating:
+          type: integer
+          example: 4
+
+    noOfferError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Hotel id * does not exist."
+
+    noCityError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "City * does not exist."
+
+    authError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "You are not logged in."
