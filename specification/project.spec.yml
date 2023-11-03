@@ -101,6 +101,13 @@ paths:
       summary: Edit an offer.
       description: Updates an offer with the offerId identifier.
       parameters:
+      - name: offerId
+        in: path
+        description: Unique offer identifier.
+        required: true
+        schema:
+          type: integer
+          example: 1
       - name: X-Token
         in: header
         description: User's authorization token.
@@ -152,6 +159,12 @@ paths:
       responses:
         "204":
           description: Offer deleted successfully.
+        "400":
+          description: Request body error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/noCityError'
         "401":
           description: User is not authorized.
           content:
