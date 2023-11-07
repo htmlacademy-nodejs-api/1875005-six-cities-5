@@ -3,8 +3,10 @@ import { DocumentType, types } from '@typegoose/typegoose';
 import { UserEntity } from './user.entity.js';
 import { CreateUserDto } from './dto/create-user.dto.js';
 import { inject, injectable } from 'inversify';
-import { Component } from '../../types/index.js';
+import { Component, SortType } from '../../types/index.js';
 import { Logger } from '../../libs/logger/index.js';
+import { OfferEntity } from '../offer/index.js';
+import UpdateUserDto from './dto/update-user.dto.js';
 
 @injectable()
 export class DefaultUserService implements UserService {
@@ -36,6 +38,28 @@ export class DefaultUserService implements UserService {
     }
 
     return this.create(dto, salt);
+  }
+
+  public async updateById(userId: string, dto: UpdateUserDto): Promise<DocumentType<UserEntity> | null> {
+    return this.userModel
+      .findByIdAndUpdate(userId, dto, { new: true })
+      .exec();
+  }
+
+  public async findFavorites(userId: string): Promise<DocumentType<OfferEntity>[] | null> {
+    return this.userModel
+      .findById(userId, { favorites: true, _id: false })
+      .populate<{ favorites: DocumentType<OfferEntity>[] }>('favorites')
+      .sort({ createdAt: SortType.Down })
+      .orFail()
+      .exec()
+      .then(({ favorites }) => favorites);
+
+  }
+
+  public async changeFavorites(userId: string, offerId: string, value: boolean): Promise<DocumentType<UserEntity> | null> {
+    return this.userModel
+      .findByIdAndUpdate(userId, { [`${value ? '$push' : '$pull'}`]: { favorites: offerId } }, { new: true }).exec();
   }
 
 }

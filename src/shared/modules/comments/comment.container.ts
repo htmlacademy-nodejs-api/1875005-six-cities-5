@@ -1,19 +1,21 @@
 import { Container } from 'inversify';
 import { types } from '@typegoose/typegoose';
-import { CommentService } from './comment-service.interface.js';
-import { Component } from '../../types/index.js';
-import { CommentEntity, CommentModel } from './comment.entity.js';
-import { DefaultCommentService } from './default-comment.service.js';
+import { CommentEntity } from './comment.entity.js';
+import { Component } from '../../../shared/types/index.js';
+import { DefaultCommentService, CommentModel, CommentService } from './index.js';
+import { Controller } from '../../../shared/libs/rest/index.js';
+import { CommentController } from './comment.controller.js';
 
-export function createCommentContainer() {
-  const commentContainer = new Container();
-
-  commentContainer.bind<CommentService>(Component.CommentService)
+export const createCommentContainer = () => {
+  const container = new Container();
+  container.bind<CommentService>(Component.CommentService)
     .to(DefaultCommentService)
     .inSingletonScope();
-
-  commentContainer.bind<types.ModelType<CommentEntity>>(Component.CommentModel)
+  container.bind<types.ModelType<CommentEntity>>(Component.CommentModel)
     .toConstantValue(CommentModel);
 
-  return commentContainer;
-}
+  container.bind<Controller>(Component.CommentController)
+    .to(CommentController).inSingletonScope();
+
+  return container;
+};

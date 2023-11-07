@@ -487,9 +487,6 @@ components:
         isPremium:
           type: boolean
           example: false
-        isFavorite:
-          type: boolean
-          example: true
         rating:
           type: number
           example: 2.1
@@ -529,7 +526,6 @@ components:
         - previewImage
         - images
         - isPremium
-        - isFavorite
         - rating
         - type
         - rooms
@@ -576,9 +572,6 @@ components:
         isPremium:
           type: boolean
           example: false
-        isFavorite:
-          type: boolean
-          example: true
         rating:
           type: number
           example: 2.1
@@ -622,7 +615,6 @@ components:
         - preview
         - images
         - isPremium
-        - isFavorite
         - rating
         - property
         - roomsCount

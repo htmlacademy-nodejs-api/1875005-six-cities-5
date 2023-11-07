@@ -6,7 +6,7 @@ import { PropertyType } from '../types/property-type.enum.js';
 
 export function createOffer(offerData: string): Offer {
   const [
-    title, description, postDate, city, previewImage, images, isPremium, isFavorite,
+    title, description, postDate, city, previewImage, images, isPremium,
     rating, type, rooms, guests, price, goods, hostData, commentsCount, location
   ] = offerData.replace('\n', '').split('\t');
 
@@ -22,7 +22,6 @@ export function createOffer(offerData: string): Offer {
     previewImage,
     images: images.split(','),
     isPremium: isPremium === 'true',
-    isFavorite: isFavorite === 'true',
     rating: Number.parseFloat(rating),
     type: PropertyType[type as 'apartment' | 'house' | 'room' | 'hotel'],
     rooms: Number.parseInt(rooms, 10),

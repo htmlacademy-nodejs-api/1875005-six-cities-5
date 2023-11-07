@@ -16,7 +16,6 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
     require: true,
     minlength: 1,
     maxlength: 15,
-    default: '',
   })
   public name: string;
 
@@ -43,6 +42,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
     default: '',
   })
   private password?: string;
+
 
   constructor(userData: User) {
     super();
