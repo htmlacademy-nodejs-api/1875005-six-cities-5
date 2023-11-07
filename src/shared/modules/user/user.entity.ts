@@ -16,7 +16,6 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
     require: true,
     minlength: 1,
     maxlength: 15,
-    default: '',
   })
   public name: string;
 

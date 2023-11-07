@@ -15,7 +15,6 @@ export type Offer = {
   previewImage: string; // Obligatory, link
   images: string[]; // Obligatory, 6 photos in total
   isPremium: boolean; //Obligatory
-  isFavorite: boolean; // Obligatory
   rating: number; // Obligatory, numbers with 1 symbol after comma
   type: PropertyType; // Obligatory, one of 4 types
   rooms: number; // Obligatory, 1-8
