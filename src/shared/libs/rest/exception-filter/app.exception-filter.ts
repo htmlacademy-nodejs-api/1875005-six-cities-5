@@ -7,6 +7,7 @@ import { NextFunction, Request, Response } from 'express';
 import { createErrorObject } from '../../../helpers/index.js';
 import { StatusCodes } from 'http-status-codes';
 
+
 @injectable()
 export class AppExceptionFilter implements ExceptionFilter {
   constructor(
